@@ -106,8 +106,9 @@ class MenuState:
                 self.entries = list_dir(full)
                 self.selected = 0
             else:
-                # It's a file -- trigger playback.
-                # (Hook point: send this path to your music player script.)
+                # It's a file -- stop any active scroll first so the menu's
+                # claim goes quiet, then trigger playback.
+                self._stop_scroll()
                 self._play(full)
                 return  # don't redraw the menu over playback feedback
         self._redraw(vfd)
